@@ -6,8 +6,11 @@ let isLeftClicked = false;
 
 $(function () {
 
+    window.onload = brushTool();
+
+
     $('.color').val('#000000');
-    color = $('input').val();
+    color = $('.color').val();
 
     $('.color').change(function (e) {
         color = $(this).val();
@@ -26,11 +29,14 @@ $(function () {
 
     $('button').on('click', function (evt) {
         makeGrid();
+        brushTool();
+    });
 
+    function brushTool () {
         $("td").contextmenu(function (e) {
             e.preventDefault();
         });
-
+    
         $("td").mousedown(function (e) {
             e.preventDefault();
             if (e.button == 0) {
@@ -43,7 +49,7 @@ $(function () {
                 $(this).css('background-color', '#ffffff');
             }
         });
-
+    
         $("td").mouseup(function (e) {
             if (e.button == 0) {
                 isLeftClicked = false;
@@ -51,12 +57,12 @@ $(function () {
                 isRightClicked = false;
             }
         });
-
+    
         $('table').mouseleave(function() {
             isRightClicked = false;
             isLeftClicked = false;
         })
-
+    
         $("td").hover(function () {
             if (isLeftClicked) {
                 $(this).css('background-color', color);
@@ -66,5 +72,6 @@ $(function () {
                 $(this).css('background-color', '#ffffff');
             }
         });
-    });
+    }
+
 });
